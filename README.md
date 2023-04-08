@@ -2,8 +2,8 @@
 
 A Telegram bot that lets you interact with the Bing AI from chats that you allow in the config.
 
-To start using this project, please copy `variables.example.ts` to `variables.ts`, and go through it.
+To start using this project,
 
-Once you've made the required changes to `variables.ts`, you can run `yarn dev` to run the bot.
-
-You can also build the bot using `yarn build` and run it using `yarn start` or `node dist/src`.
+* Run `yarn install` to install the dependencies.
+* Copy `variables.example.ts` to `variables.ts`, go through it, and add the required information.
+* Run `yarn dev` or `yarn build && yarn start` to start the bot.
