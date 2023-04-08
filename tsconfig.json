@@ -11,5 +11,5 @@
 		"esModuleInterop": true
 	},
 	"include": ["*.ts", "src/**/*.ts"],
-	"exclude": ["node_modules", "lib"]
+	"exclude": ["node_modules", "dist"]
 }
