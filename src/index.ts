@@ -1,3 +1,4 @@
+import { bold, code, fmt, underline } from "telegraf/format";
 import { ALLOWED_CHAT_IDS } from "../variables.js";
 import { ai, getVariant, newChat, setVariant, variants } from "./ai.js";
 import { checkOrigin } from "./check-origin.js";
@@ -52,6 +53,31 @@ async function main() {
 
 		setVariant(ctx.chat.id, variant);
 		await ctx.reply(`The variant for this chat has been set to '${variant}'`);
+	});
+
+	bot.command("help", async ctx => {
+		await ctx.reply(
+			fmt`• ${underline(bold`Prompting the bot`)}
+To prompt the AI, you can either use the ${code`/ai`} command with a prompt, such as:
+${code`/ai what is the radius of the earth`}
+
+...or reply to a message from the bot. In both cases, the same conversation will be carried forward (i.e. the bot will retain context of previous messages).
+
+• ${underline(bold`Starting a new conversation`)}
+You can use /newchat to start a new conversation. By doing this, the bot will effectively 'lose memories' of the conversations since the last /newchat.
+
+The bot will prompt you to do this if a conversation cannot be continued any further.
+
+• ${underline(bold`Setting or getting the variant`)}
+You can get the bot variant using the /variant command.
+
+Use ${code`/variant <variant>`} to set the bot variant. Valid variants are:
+‣ ${bold("Balanced")} (default): informative and friendly
+‣ ${bold("Creative")}: original and imaginative
+‣ ${bold("Precise")}: concise and straightforward
+
+The variant command accepts the name of any of these 3 variants in a case-insensitive format.`,
+		);
 	});
 
 	bot.launch();
