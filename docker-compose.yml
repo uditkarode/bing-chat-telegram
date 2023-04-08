@@ -1,0 +1,8 @@
+version: '3.5'
+services:
+#########################
+    bing-tg:
+      hostname: bing-tg
+      image: bing-tg
+      volumes:
+          - ./variables.ts:/root/variables.ts
