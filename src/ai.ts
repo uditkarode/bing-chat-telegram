@@ -37,15 +37,19 @@ export async function ai(ctx: Context<Update>, prompt: string) {
 		);
 		chats[chatId].res = bingRes;
 
-		let tgRes: FmtString | string;
-		if (bingRes.text === prompt) {
-			// Bing Chat often replies with the exact prompt
-			// in case it's unable to continue the conversation.
-			tgRes =
-				"Something went wrong. Starting a new chat with /newchat is recommended.";
-		} else {
-			tgRes = transformBingResponse(bingRes);
-		}
+		const tgRes = (() => {
+			if (bingRes.text === prompt) {
+				// Bing Chat often replies with the exact prompt
+				// in case it's unable to continue the conversation.
+				return "Something went wrong. Starting a new chat with /newchat is recommended.";
+			}
+
+			if (!bingRes.text) {
+				return "Received an empty response. Make sure the bot is set up properly and that you haven't crossed the daily message limit.";
+			}
+
+			return transformBingResponse(bingRes);
+		})();
 
 		await ctx.telegram.editMessageText(chatId, message_id, undefined, tgRes, {
 			disable_web_page_preview: true,
