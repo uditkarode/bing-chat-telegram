@@ -11,7 +11,7 @@ A Telegram bot that lets you interact with the Bing AI from chats that you allow
 **> To enable Telegram command autocompletion,**
 * Press the `Edit Commands` button in your bot's menu on BotFather, and paste the following:
 ```
-ai - send a message to Bing AI
-variant - get or set the chat variant of the chat
+ai - send a prompt to the AI
+variant - get or set the variant of the chat
 help - get help on how to use the bot
 ```
