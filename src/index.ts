@@ -64,14 +64,14 @@ ${code`/ai what is the radius of the earth`}
 ...or reply to a message from the bot. In both cases, the same conversation will be carried forward (i.e. the bot will retain context of previous messages).
 
 • ${underline(bold`Starting a new conversation`)}
-You can use /newchat to start a new conversation. By doing this, the bot will effectively 'lose memories' of the conversations since the last /newchat.
+You can use /newchat to start a new conversation. By doing this, the bot will effectively 'lose memories' of the messages sent to it since the last /newchat.
 
 The bot will prompt you to do this if a conversation cannot be continued any further.
 
 • ${underline(bold`Setting or getting the variant`)}
-You can get the bot variant using the /variant command.
+Variants are applied on a chat-wide basis. You can get the bot variant using the /variant command with no arguments.
 
-Use ${code`/variant <variant>`} to set the bot variant. Valid variants are:
+Use '${code`/variant <variant>`}' to set the bot variant. Valid variants are:
 ‣ ${bold("Balanced")} (default): informative and friendly
 ‣ ${bold("Creative")}: original and imaginative
 ‣ ${bold("Precise")}: concise and straightforward
