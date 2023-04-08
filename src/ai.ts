@@ -3,7 +3,7 @@ import { done, firstPos, queue } from "./queue.js";
 import { transformBingResponse } from "./transformers.js";
 import { ChatMessage } from "bing-chat";
 import { Context } from "telegraf";
-import { bold, fmt } from "telegraf/format";
+import { FmtString, bold, fmt } from "telegraf/format";
 import { Update } from "typegram";
 
 const chats: Record<
@@ -37,12 +37,13 @@ export async function ai(ctx: Context<Update>, prompt: string) {
 		);
 		chats[chatId].res = bingRes;
 
-		let tgRes = transformBingResponse(bingRes);
-
-		// Bing Chat often replies with the exact prompt
-		// in case it's unable to continue the conversation.
-		if (tgRes.text === prompt && !tgRes.entities) {
+		let tgRes: FmtString;
+		if (bingRes.text === prompt) {
+			// Bing Chat often replies with the exact prompt
+			// in case it's unable to continue the conversation.
 			tgRes = fmt`Something went wrong. Starting a new chat with /newchat is recommended.`;
+		} else {
+			tgRes = transformBingResponse(bingRes);
 		}
 
 		await ctx.telegram.editMessageText(chatId, message_id, undefined, tgRes, {
