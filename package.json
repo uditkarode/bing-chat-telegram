@@ -1,0 +1,24 @@
+{
+	"name": "bing-bot",
+	"type": "module",
+	"author": "Udit Karode <udit.karode@gmail.com>",
+	"version": "0.1",
+	"license": "MIT",
+	"scripts": {
+		"build": "tsc --pretty",
+		"start": "node dist/src",
+		"dev": "tsx src/index.ts",
+		"test": "tsx src/test.ts"
+	},
+	"devDependencies": {
+		"@types/node": "^18.15.9",
+		"prettier": "^2.8.7",
+		"tsx": "^3.12.6",
+		"typegram": "^5.0.0",
+		"typescript": "^5.0.4"
+	},
+	"dependencies": {
+		"bing-chat": "^0.2.3",
+		"telegraf": "^4.12.2"
+	}
+}
