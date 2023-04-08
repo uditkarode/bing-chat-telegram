@@ -37,11 +37,12 @@ export async function ai(ctx: Context<Update>, prompt: string) {
 		);
 		chats[chatId].res = bingRes;
 
-		let tgRes: FmtString;
+		let tgRes: FmtString | string;
 		if (bingRes.text === prompt) {
 			// Bing Chat often replies with the exact prompt
 			// in case it's unable to continue the conversation.
-			tgRes = fmt`Something went wrong. Starting a new chat with /newchat is recommended.`;
+			tgRes =
+				"Something went wrong. Starting a new chat with /newchat is recommended.";
 		} else {
 			tgRes = transformBingResponse(bingRes);
 		}
