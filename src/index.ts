@@ -1,16 +1,17 @@
 import { bold, code, fmt, underline } from "telegraf/format";
-import { ALLOWED_CHAT_IDS } from "../variables.js";
+import { ALLOWED_CHAT_IDS, TG_TOKEN } from "../variables.js";
 import { ai, getVariant, newChat, setVariant, variants } from "./ai.js";
 import { checkOrigin } from "./check-origin.js";
-import { bot } from "./instances.js";
 import { message } from "telegraf/filters";
 import { useNewReplies } from "telegraf/future";
+import { Telegraf } from "telegraf";
 
 function args(cmd: string) {
 	return cmd.split(" ").splice(1).join(" ");
 }
 
 async function main() {
+	const bot = new Telegraf(TG_TOKEN.trim());
 	bot.use(useNewReplies());
 
 	if (typeof ALLOWED_CHAT_IDS != "string") {

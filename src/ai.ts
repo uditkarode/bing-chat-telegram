@@ -1,10 +1,14 @@
-import { bingChat } from "./instances.js";
 import { done, firstPos, queue } from "./queue.js";
 import { transformBingResponse } from "./transformers.js";
-import { ChatMessage } from "bing-chat";
+import { BingChat, ChatMessage } from "bing-chat";
 import { Context } from "telegraf";
-import { FmtString, bold, fmt } from "telegraf/format";
+import { bold, fmt } from "telegraf/format";
 import { Update } from "typegram";
+import { BING_COOKIE } from "../variables.js";
+
+export const bingChat = new BingChat({
+	cookie: BING_COOKIE.replaceAll('"', "").trim(),
+});
 
 const chats: Record<
 	number,
