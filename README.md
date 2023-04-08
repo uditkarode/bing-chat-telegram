@@ -8,6 +8,13 @@ A Telegram bot that lets you interact with the Bing AI from chats that you allow
 * Copy `variables.example.ts` to `variables.ts`, go through it, and add the required information.
 * Run `yarn dev` or `yarn build && yarn start` to start the bot.
 
+### OR using docker
+**> To start using this project,**
+
+* Run `docker compose -f .build/docker-compose.yml build` to build the container
+* Copy `variables.example.ts` to `variables.ts`, go through it, and add the required information.
+* Run `docker compose up -d` to start the bot.
+
 **> To enable Telegram command autocompletion,**
 * Press the `Edit Commands` button in your bot's menu on BotFather, and paste the following:
 ```
