@@ -11,7 +11,7 @@ A Telegram bot that lets you interact with the Bing AI from chats that you allow
 **> To start using this project using Docker,**
 
 - Run `docker compose -f .build/docker-compose.yml build` to build the container
-- TODO
+- Create a `.env` file or set environment variables according to the reference file `.env.example`
 - Run `docker compose up -d` to start the bot.
 
 **> To enable Telegram command autocompletion,**
