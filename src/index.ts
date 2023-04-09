@@ -1,21 +1,19 @@
 import { bold, code, fmt, underline } from "telegraf/format";
-import { ALLOWED_CHAT_IDS, TG_TOKEN } from "../variables.js";
 import { ai, getVariant, newChat, setVariant, variants } from "./ai.js";
 import { checkOrigin } from "./check-origin.js";
 import { message } from "telegraf/filters";
 import { useNewReplies } from "telegraf/future";
-import { Telegraf } from "telegraf";
-
-function args(cmd: string) {
-	return cmd.split(" ").splice(1).join(" ");
-}
+import { allowedChats, bot } from "./config.js";
 
 async function main() {
-	const bot = new Telegraf(TG_TOKEN.trim());
 	bot.use(useNewReplies());
 
-	if (typeof ALLOWED_CHAT_IDS != "string") {
-		bot.use(checkOrigin(ALLOWED_CHAT_IDS));
+	if (allowedChats) {
+		console.log("Usage allowed in chats: ");
+		console.log(allowedChats);
+		bot.use(checkOrigin(allowedChats));
+	} else {
+		console.log("Usage allowed in all chats");
 	}
 
 	bot.command("ai", async ctx => {
@@ -81,6 +79,10 @@ The variant command accepts the name of any of these 3 variants in a case-insens
 		);
 	});
 
+	bot.catch(err => {
+		console.log(err);
+	});
+
 	bot.launch();
 	console.log("Bot running!");
 	console.log("Use ^C to stop");
@@ -88,6 +90,10 @@ The variant command accepts the name of any of these 3 variants in a case-insens
 	// Enable graceful stop
 	process.once("SIGINT", () => bot.stop("SIGINT"));
 	process.once("SIGTERM", () => bot.stop("SIGTERM"));
+}
+
+function args(cmd: string) {
+	return cmd.split(" ").splice(1).join(" ");
 }
 
 main();

@@ -1,14 +1,12 @@
 import { done, firstPos, queue } from "./queue.js";
 import { transformBingResponse } from "./transformers.js";
-import { BingChat, ChatMessage } from "bing-chat";
+import { ChatMessage } from "bing-chat";
 import { Context } from "telegraf";
 import { bold, fmt } from "telegraf/format";
 import { Update } from "typegram";
-import { BING_COOKIE } from "../variables.js";
-
-export const bingChat = new BingChat({
-	cookie: BING_COOKIE.replaceAll('"', "").trim(),
-});
+import { bingChat } from "./config.js";
+import pTimeout from "p-timeout";
+import { Message } from "telegraf/types";
 
 const chats: Record<
 	number,
@@ -16,10 +14,21 @@ const chats: Record<
 > = {};
 
 export const variants = ["creative", "balanced", "precise"];
+
+const defaultTimeoutMs = 50 * 1000;
 const defaultVariant = "Balanced";
 
-export async function ai(ctx: Context<Update>, prompt: string) {
+export async function ai(
+	ctx: Context<Update>,
+	prompt: string,
+): Promise<void | Message> {
 	try {
+		if (!prompt) {
+			return await ctx.reply(
+				"No prompt provided! Please read /help for more information.",
+			);
+		}
+
 		const chatId = ctx.chat!.id;
 		chats[chatId] ||= { index: 1 };
 
@@ -33,19 +42,33 @@ export async function ai(ctx: Context<Update>, prompt: string) {
 			fmt`${bold`[${chats[chatId].index++}]`} Running prompt...`,
 		);
 
-		const bingRes = await bingChat.sendMessage(
-			prompt,
-			Object.assign({}, chats[chatId].res, {
-				variant: chats[chatId].variant ?? defaultVariant,
-			}),
-		);
+		let bingRes: ChatMessage;
+		try {
+			bingRes = await pTimeout(
+				bingChat.sendMessage(
+					prompt,
+					Object.assign({}, chats[chatId].res, {
+						variant: chats[chatId].variant ?? defaultVariant,
+					}),
+				),
+				{
+					milliseconds: defaultTimeoutMs,
+					message: `No response from Bing, waited ${
+						defaultTimeoutMs / 1000
+					} seconds`,
+				},
+			);
+		} catch (e) {
+			return await ctx.reply((e as Error).message || "Something went wrong");
+		}
+
 		chats[chatId].res = bingRes;
 
 		const tgRes = (() => {
 			if (bingRes.text === prompt) {
 				// Bing Chat often replies with the exact prompt
 				// in case it's unable to continue the conversation.
-				return "Something went wrong. Starting a new chat with /newchat is recommended.";
+				return "Bing replied with the exact text as your prompt. This usually happens when the AI is unable to continue the conversation. Starting a new chat with /newchat is recommended.";
 			}
 
 			if (!bingRes.text) {
