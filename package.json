@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "tsc --pretty",
-		"start": "node dist/src",
+		"start": "node dist",
 		"dev": "tsx src/index.ts",
 		"test": "tsx src/test.ts"
 	},
