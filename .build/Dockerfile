@@ -9,8 +9,7 @@ WORKDIR /root
 COPY . .
 
 RUN yarn install \
- && rm -rf /usr/local/share/.cache
+ && rm -rf /usr/local/share/.cache \
+ && yarn build
 
- #&& yarn build
-
-CMD yarn build && yarn start
+CMD yarn start
