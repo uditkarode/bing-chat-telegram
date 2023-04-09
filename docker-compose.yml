@@ -3,6 +3,7 @@ services:
 #########################
     bing-tg:
       hostname: bing-tg
-      image: bing-tg
-      volumes:
-          - ./variables.ts:/root/variables.ts
+      image: git.shihaam.dev/dockerfiles/bing-chat-telegram
+      env_file:
+          - .env
+      restart: always
