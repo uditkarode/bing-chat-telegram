@@ -20,6 +20,7 @@
 	},
 	"dependencies": {
 		"bing-chat": "^0.2.3",
+		"dotenv": "^16.0.3",
 		"dotenv-safe": "^8.2.0",
 		"p-timeout": "^6.1.1",
 		"telegraf": "^4.12.2"
