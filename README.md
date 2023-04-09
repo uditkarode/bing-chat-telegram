@@ -15,7 +15,7 @@ A Telegram bot that lets you interact with the Bing AI from chats that you allow
 - Run `docker compose up -d` to start the bot.
 - Run `docker compose -f .build/docker-compose.yml push` to push container to registry.
 
-**> To start using this project using Docker in prod**
+**> To start using this project using Docker in prod,**
 - Create `docker-compose.yml` with the content from `docker-compose.yml` in repo.
 - Create `.env` with the required variables. (see .env.example in repo)
 - Run `docker compose up -d` to start the bot.
