@@ -38,6 +38,16 @@ export const transformers: Transformers = [
 		return replace(reply, /\*(.*?)\*/g, (_, txt) => italic(txt));
 	},
 
+	function stylePre(reply) {
+		return replace(
+			reply,
+			/```(\w+)\n([\s\S]*?)```/g,
+			(_, language, codeString) => {
+				return pre(language)(codeString);
+			},
+		);
+	},
+
 	function styleCode(reply) {
 		return replace(reply, /`(.*?)`/g, (_, codeString) => code(codeString));
 	},
@@ -51,19 +61,5 @@ export const transformers: Transformers = [
 			if (!referenceLink) return "";
 			return fmt` ${bold(link(`[${oneBasedIndex}]`, referenceLink))}`;
 		});
-	},
-
-	function stylePre(reply) {
-		return replace(
-			reply,
-			/```(\w+)\n([\s\S]*?)```/g,
-			(_, language, codeString) => {
-				return pre(language)(codeString);
-			},
-		);
-	},
-
-	function styleAlternateBold(reply) {
-		return replace(reply, /^`\n(.*?)`/gms, (_, txt) => bold(txt));
 	},
 ];

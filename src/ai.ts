@@ -77,8 +77,13 @@ export async function ai(
 
 		await edit(getTgResponse(bingRes, prompt));
 	} catch (e) {
+		console.log("[local] caught error:");
 		console.log(e);
-		await edit("Something went wrong!");
+		try {
+			await edit(
+				"Unable to obtain a response from Bing due to a technical error.",
+			);
+		} catch {}
 	}
 
 	// signal completion, let the next client proceed
@@ -97,15 +102,18 @@ function getTgResponse(bingRes: ChatMessage | Error, prompt: string) {
 	}
 
 	if (!bingRes.text) {
-		return "Received an empty response. Make sure the bot is set up properly and that you haven't crossed the daily message limit.";
+		return "Received an empty response. Make sure the bot is set up properly and that you haven't crossed the daily message limit. You can also try starting a /newchat.";
 	}
 
 	return transformBingResponse(bingRes);
 }
 
 export function newChat(chatId: number) {
-	delete chats[chatId].res;
-	chats[chatId].index = 1;
+	const chat = chats[chatId];
+	if (chat) {
+		delete chat.res;
+		chat.index = 1;
+	}
 }
 
 export function getVariant(chatId: number) {

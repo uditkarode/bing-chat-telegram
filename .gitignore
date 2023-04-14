@@ -1,4 +1,4 @@
-/variables.ts
+/.env
 /node_modules
 /src/test.ts
 /dist

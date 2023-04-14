@@ -16,9 +16,7 @@ async function main() {
 		console.log("Usage allowed in all chats");
 	}
 
-	bot.command("ai", async ctx => {
-		await ai(ctx, args(ctx.message.text));
-	});
+	bot.command("ai", async ctx => ai(ctx, args(ctx.message.text)));
 
 	bot.on(message("reply_to_message"), async ctx => {
 		if (ctx.message.reply_to_message.from?.id != ctx.botInfo.id) return;
@@ -26,7 +24,7 @@ async function main() {
 		const reply = ctx.message.reply_to_message;
 		const message = ctx.message;
 		if ("text" in reply && "text" in message) {
-			await ai(ctx, message.text);
+			ai(ctx, message.text);
 		}
 	});
 
@@ -80,6 +78,7 @@ The variant command accepts the name of any of these 3 variants in a case-insens
 	});
 
 	bot.catch(err => {
+		console.log("[global] caught error:");
 		console.log(err);
 	});
 
