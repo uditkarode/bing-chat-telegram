@@ -18,6 +18,7 @@ export const transformers: Transformers = [
 			"“new topic",
 			"prefer not to continue",
 			"still learning so I appreciate your understanding and patience",
+			"I cannot continue this conversation",
 		];
 
 		if (triggers.some(trigger => lowercaseReply.includes(trigger)))
