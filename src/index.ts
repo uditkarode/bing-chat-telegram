@@ -58,7 +58,7 @@ async function main() {
 To prompt the AI, you can either use the ${code`/ai`} command with a prompt, such as:
 ${code`/ai what is the radius of the earth`}
 
-...or reply to a message from the bot. In both cases, the same conversation will be carried forward (i.e. the bot will retain context of previous messages).
+...or reply to a message from the bot with a message starting with a period, for example ". hello". In both cases, the same conversation will be carried forward (i.e. the bot will retain context of previous messages).
 
 • ${underline(bold`Starting a new conversation`)}
 You can use /newchat to start a new conversation. By doing this, the bot will effectively 'lose memories' of the messages sent to it since the last /newchat.
