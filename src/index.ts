@@ -23,8 +23,8 @@ async function main() {
 
 		const reply = ctx.message.reply_to_message;
 		const message = ctx.message;
-		if ("text" in reply && "text" in message && message.text.startsWith('.')) {
-			ai(ctx, message.text.splice(1).trim());
+		if ("text" in reply && "text" in message && message.text.startsWith(".")) {
+			ai(ctx, message.text.slice(1).trim());
 		}
 	});
 
