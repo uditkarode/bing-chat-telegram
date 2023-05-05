@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+#########################
+    bing-tg:
+      build:
+        context: ..
+        dockerfile: .build/Dockerfile
+      hostname: bing-tg
+      image: uditkarode/bing-chat-telegram:latest
+

@@ -1,4 +1,4 @@
-FROM node:18.15.0-alpine3.17
+FROM node:20-alpine3.16
 
 
 # Set build shell to bash, default has has some issues sometimes
