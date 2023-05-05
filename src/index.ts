@@ -36,7 +36,7 @@ async function main() {
 	});
 
 	bot.command("variant", async ctx => {
-		const variant = args(ctx.message.text);
+		const variant = args(ctx.message.text).toLowerCase();
 
 		if (!variant)
 			return await ctx.reply(
